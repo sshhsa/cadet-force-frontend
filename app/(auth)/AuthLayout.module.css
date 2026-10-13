@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding-block: var(--section-padding-medium);
+  background-color: var(--color-bg-soft);
+}
