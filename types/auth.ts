@@ -8,6 +8,10 @@ export interface AuthResponse {
   user: User;
 }
 
+export interface RegisterResponse {
+  user: User;
+}
+
 export interface RegisterPayload {
   name: string;
   email: string;
