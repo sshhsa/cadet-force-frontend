@@ -1,0 +1,122 @@
+:root {
+  /* ===== colors (НАВС: наві + золото) ===== */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-navy: #0e2158;
+  /* основний бренд-колір — шапка, заголовки, кнопки */
+  --color-navy-dark: #0a1840;
+  /* hover/active, футер */
+  --color-navy-light: #3a4e8c;
+  --color-gold: #e8a93a;
+  /* діагональна смужка, акценти, розділювачі */
+  --color-gold-light: #f6d999;
+
+  --color-bg: #ffffff;
+  --color-bg-soft: #f7f9fc;
+  /* фон інфо-блоків, сторінки */
+  --color-bg-lavender: #e7ecfb;
+  /* шапка таблиці, бейджі */
+
+  --color-text: #111827;
+  --color-text-navy: #0e2158;
+  --color-text-muted: #6b7280;
+
+  --color-border: #e5e9f2;
+  --color-overlay-5: rgba(14, 33, 88, 0.05);
+  --color-error: #b00101;
+  --color-success: #32c682;
+
+  /* ===== typography ===== */
+  --font-family: var(--font-geist-sans), sans-serif;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-h1: 1.15;
+  --lh-h2: 1.2;
+  --lh-h4: 1.3;
+  --lh-h6: 1.4;
+  --lh-text: 1.5;
+  --ls-heading: -0.01em;
+
+  /* mobile (375) */
+  --fs-h1: 28px;
+  --fs-h2: 24px;
+  --fs-h3: 22px;
+  --fs-h4: 20px;
+  --fs-h5: 18px;
+  --fs-h6: 16px;
+  --fs-text-large: 18px;
+  --fs-text-medium: 16px;
+  --fs-text-regular: 15px;
+  --fs-text-small: 13px;
+  --fs-text-tiny: 11px;
+
+  /* ===== layout ===== */
+  --page-padding: 20px;
+  --section-padding-large: 48px;
+  --section-padding-medium: 32px;
+  --section-padding-small: 24px;
+  --container-small: 768px;
+  --container-medium: 1024px;
+  --container-large: 1280px;
+  --container-max: calc(var(--container-large) + var(--page-padding) + var(--page-padding));
+  --max-width-xxsmall: 320px;
+  --max-width-xsmall: 400px;
+  --max-width-small: 480px;
+  --max-width-medium: 560px;
+  --max-width-large: 768px;
+
+  /* ===== spacing ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ===== radius / borders ===== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --border-width: 1px;
+
+  /* ===== misc ===== */
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* tablet (768) */
+@media (min-width: 768px) {
+  :root {
+    --fs-h1: 40px;
+    --fs-h2: 32px;
+    --fs-h3: 26px;
+    --fs-h4: 22px;
+    --fs-h5: 18px;
+    --fs-h6: 16px;
+
+    --page-padding: 32px;
+    --section-padding-large: 56px;
+    --section-padding-medium: 40px;
+  }
+}
+
+/* desktop (1440) */
+@media (min-width: 1440px) {
+  :root {
+    --fs-h1: 48px;
+    --fs-h2: 36px;
+    --fs-h3: 28px;
+    --fs-h4: 24px;
+
+    --page-padding: 48px;
+    --section-padding-large: 64px;
+    --section-padding-medium: 48px;
+  }
+}
