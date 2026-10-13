@@ -1,10 +1,10 @@
 export type Sport =
-  | "sambo"
-  | "thai-boxing"
-  | "athletics"
-  | "football"
-  | "kickboxing"
-  | "judo";
+  | 'sambo'
+  | 'thai-boxing'
+  | 'athletics'
+  | 'football'
+  | 'kickboxing'
+  | 'judo';
 
 export interface Athlete {
   _id: string;
