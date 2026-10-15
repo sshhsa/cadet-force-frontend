@@ -1,0 +1,18 @@
+.image {
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-lavender);
+  color: var(--color-navy);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-text-medium);
+}
