@@ -22,17 +22,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
-  background-color: var(--color-gold);
-  border-radius: var(--radius-md);
-  color: var(--color-navy);
 }
 
 .badgeIcon {
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .brandText {
@@ -99,5 +97,11 @@
 
 .goldStripe {
   height: 4px;
-  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold) 70%, var(--color-navy-dark) 70%, var(--color-navy-dark) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-gold) 0%,
+    var(--color-gold) 70%,
+    var(--color-navy-dark) 70%,
+    var(--color-navy-dark) 100%
+  );
 }

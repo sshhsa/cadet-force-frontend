@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { logoutUser } from '@/lib/api/auth';
@@ -30,9 +31,14 @@ export default function PageHeader() {
       <div className={`container ${css.inner}`}>
         <div className={css.brand}>
           <span className={css.badge}>
-            <svg className={css.badgeIcon} viewBox="0 0 24 24">
-              <use href="/sprite.svg#icon-shield" />
-            </svg>
+            <Image
+              src="/emblem.png"
+              alt="Герб Національної академії внутрішніх справ"
+              width={44}
+              height={44}
+              className={css.badgeIcon}
+              priority
+            />
           </span>
           <div className={css.brandText}>
             <span className={css.brandTitle}>Національна академія</span>
