@@ -1,0 +1,139 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  margin-bottom: var(--space-6);
+  background-color: var(--color-white);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--color-navy);
+}
+
+.searchField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1 1 220px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: var(--fs-text-regular);
+  color: var(--color-text);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.selectField {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1 1 200px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: var(--fs-text-regular);
+  color: var(--color-text);
+  appearance: none;
+  padding-right: var(--space-5);
+}
+
+.chevron {
+  position: absolute;
+  right: var(--space-3);
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.resetButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-text-small);
+  font-weight: var(--fw-medium);
+  color: var(--color-navy);
+  background-color: var(--color-white);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition);
+}
+
+.resetButton:hover {
+  border-color: var(--color-navy);
+}
+
+.viewToggle {
+  display: flex;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-text-small);
+  font-weight: var(--fw-medium);
+  color: var(--color-navy);
+  background-color: var(--color-white);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.viewButton .icon {
+  color: inherit;
+}
+
+.viewButtonActive {
+  color: var(--color-white);
+  background-color: var(--color-navy);
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-text-small);
+  font-weight: var(--fw-semibold);
+  color: var(--color-white);
+  background-color: var(--color-navy);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition);
+}
+
+.addButton:hover {
+  background-color: var(--color-navy-dark);
+}
+
+.addButton .icon {
+  color: inherit;
+}
