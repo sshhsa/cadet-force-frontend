@@ -2,6 +2,7 @@ import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
 import { formatDate } from '@/lib/utils/formatDate';
+import { formatWeight } from '@/lib/utils/weight';
 import type { Athlete } from '@/types/athlete';
 
 import css from './AthleteCard.module.css';
@@ -62,7 +63,7 @@ export default function AthleteCard({ athlete }: AthleteCardProps) {
             <use href="/sprite.svg#icon-weight" />
           </svg>
           <span className={css.label}>Вагова категорія:</span>
-          <span className={css.value}>{athlete.weightCategory || '—'}</span>
+          <span className={css.value}>{formatWeight(athlete.weightCategory)}</span>
         </div>
       </div>
 

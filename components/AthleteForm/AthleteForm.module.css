@@ -83,6 +83,24 @@
   color: var(--color-error);
 }
 
+.suffixField {
+  position: relative;
+}
+
+.suffixField .input {
+  padding-right: calc(var(--space-8) + var(--space-2));
+}
+
+.suffix {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  font-size: var(--fs-text-regular);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
 .currentAvatar {
   display: flex;
   align-items: center;

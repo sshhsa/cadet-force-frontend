@@ -14,6 +14,7 @@ import { useCreateAthlete } from '@/lib/hooks/useCreateAthlete';
 import { useUpdateAthlete } from '@/lib/hooks/useUpdateAthlete';
 import { SPORTS, SPORT_LABELS } from '@/lib/constants/sports';
 import { toDateInputValue } from '@/lib/utils/formatDate';
+import { parseWeightValue } from '@/lib/utils/weight';
 import type { Athlete, CreateAthletePayload, Sport } from '@/types/athlete';
 
 import css from './AthleteForm.module.css';
@@ -27,7 +28,7 @@ interface AthleteFormValues {
   sport: Sport | '';
   rank: string;
   birthDate: string;
-  weightCategory: string;
+  weightCategory: number | '';
   achievements: string;
 }
 
@@ -40,7 +41,7 @@ const getInitialValues = (athlete?: Athlete): AthleteFormValues =>
         sport: athlete.sport,
         rank: athlete.rank,
         birthDate: toDateInputValue(athlete.birthDate),
-        weightCategory: athlete.weightCategory ?? '',
+        weightCategory: parseWeightValue(athlete.weightCategory),
         achievements: athlete.achievements,
       }
     : {
@@ -71,7 +72,15 @@ const schema = Yup.object({
     .typeError("Обов'язкове поле")
     .max(new Date(), 'Дата народження не може бути в майбутньому')
     .required("Обов'язкове поле"),
-  weightCategory: Yup.string().trim().required("Обов'язкове поле"),
+  weightCategory: Yup.number()
+    .typeError('Введіть число')
+    .min(40, 'Вага не може бути меншою за 40 кг')
+    .test(
+      'is-half-step',
+      'Вага має бути кратною 0.5 (наприклад, 40, 40.5, 41)',
+      (value) => value === undefined || Number.isInteger(value * 2),
+    )
+    .required("Обов'язкове поле"),
   achievements: Yup.string().trim(),
 });
 
@@ -106,7 +115,7 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
         sport: values.sport as Sport,
         rank: values.rank.trim(),
         birthDate: values.birthDate,
-        weightCategory: values.weightCategory.trim(),
+        weightCategory: `${values.weightCategory} кг`,
         achievements: values.achievements.trim(),
       };
 
@@ -250,14 +259,19 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
               <label className={css.label} htmlFor="athlete-weightCategory">
                 Вагова категорія*
               </label>
-              <Field
-                id="athlete-weightCategory"
-                name="weightCategory"
-                type="text"
-                placeholder="до 75 кг"
-                className={css.input}
-                aria-invalid={Boolean(touched.weightCategory && errors.weightCategory)}
-              />
+              <div className={css.suffixField}>
+                <Field
+                  id="athlete-weightCategory"
+                  name="weightCategory"
+                  type="number"
+                  min="40"
+                  step="0.5"
+                  placeholder="75"
+                  className={css.input}
+                  aria-invalid={Boolean(touched.weightCategory && errors.weightCategory)}
+                />
+                <span className={css.suffix}>кг</span>
+              </div>
               <ErrorMessage
                 name="weightCategory"
                 component="span"

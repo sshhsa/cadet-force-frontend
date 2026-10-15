@@ -2,6 +2,7 @@ import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
 import { formatDate } from '@/lib/utils/formatDate';
+import { formatWeight } from '@/lib/utils/weight';
 import type { Athlete } from '@/types/athlete';
 
 import css from './AthleteTable.module.css';
@@ -40,7 +41,7 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
               <td>{SPORT_LABELS[athlete.sport]}</td>
               <td>{athlete.rank}</td>
               <td>{formatDate(athlete.birthDate)}</td>
-              <td>{athlete.weightCategory || '—'}</td>
+              <td>{formatWeight(athlete.weightCategory)}</td>
               <td>{athlete.achievements || '—'}</td>
               <td>
                 <AthleteActions athlete={athlete} />
