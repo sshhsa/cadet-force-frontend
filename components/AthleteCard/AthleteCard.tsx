@@ -1,6 +1,7 @@
 import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
+import { formatDate } from '@/lib/utils/formatDate';
 import type { Athlete } from '@/types/athlete';
 
 import css from './AthleteCard.module.css';
@@ -48,6 +49,20 @@ export default function AthleteCard({ athlete }: AthleteCardProps) {
           </svg>
           <span className={css.label}>Розряд:</span>
           <span className={css.value}>{athlete.rank}</span>
+        </div>
+        <div className={css.row}>
+          <svg className={css.icon} viewBox="0 0 24 24">
+            <use href="/sprite.svg#icon-calendar" />
+          </svg>
+          <span className={css.label}>Дата народження:</span>
+          <span className={css.value}>{formatDate(athlete.birthDate)}</span>
+        </div>
+        <div className={css.row}>
+          <svg className={css.icon} viewBox="0 0 24 24">
+            <use href="/sprite.svg#icon-weight" />
+          </svg>
+          <span className={css.label}>Вагова категорія:</span>
+          <span className={css.value}>{athlete.weightCategory || '—'}</span>
         </div>
       </div>
 

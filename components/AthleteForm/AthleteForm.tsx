@@ -13,6 +13,7 @@ import { getErrorMessage } from '@/lib/api/getErrorMessage';
 import { useCreateAthlete } from '@/lib/hooks/useCreateAthlete';
 import { useUpdateAthlete } from '@/lib/hooks/useUpdateAthlete';
 import { SPORTS, SPORT_LABELS } from '@/lib/constants/sports';
+import { toDateInputValue } from '@/lib/utils/formatDate';
 import type { Athlete, CreateAthletePayload, Sport } from '@/types/athlete';
 
 import css from './AthleteForm.module.css';
@@ -25,6 +26,8 @@ interface AthleteFormValues {
   course: number | '';
   sport: Sport | '';
   rank: string;
+  birthDate: string;
+  weightCategory: string;
   achievements: string;
 }
 
@@ -36,6 +39,8 @@ const getInitialValues = (athlete?: Athlete): AthleteFormValues =>
         course: athlete.course,
         sport: athlete.sport,
         rank: athlete.rank,
+        birthDate: toDateInputValue(athlete.birthDate),
+        weightCategory: athlete.weightCategory ?? '',
         achievements: athlete.achievements,
       }
     : {
@@ -44,6 +49,8 @@ const getInitialValues = (athlete?: Athlete): AthleteFormValues =>
         course: '',
         sport: '',
         rank: '',
+        birthDate: '',
+        weightCategory: '',
         achievements: '',
       };
 
@@ -60,6 +67,11 @@ const schema = Yup.object({
     .required("Обов'язкове поле"),
   sport: Yup.string().oneOf(SPORTS, 'Оберіть вид спорту').required("Обов'язкове поле"),
   rank: Yup.string().trim().required("Обов'язкове поле"),
+  birthDate: Yup.date()
+    .typeError("Обов'язкове поле")
+    .max(new Date(), 'Дата народження не може бути в майбутньому')
+    .required("Обов'язкове поле"),
+  weightCategory: Yup.string().trim().required("Обов'язкове поле"),
   achievements: Yup.string().trim(),
 });
 
@@ -93,6 +105,8 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
         course: Number(values.course),
         sport: values.sport as Sport,
         rank: values.rank.trim(),
+        birthDate: values.birthDate,
+        weightCategory: values.weightCategory.trim(),
         achievements: values.achievements.trim(),
       };
 
@@ -216,6 +230,39 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
                 aria-invalid={Boolean(touched.rank && errors.rank)}
               />
               <ErrorMessage name="rank" component="span" className={css.error} />
+            </div>
+
+            <div className={css.field}>
+              <label className={css.label} htmlFor="athlete-birthDate">
+                Дата народження*
+              </label>
+              <Field
+                id="athlete-birthDate"
+                name="birthDate"
+                type="date"
+                className={css.input}
+                aria-invalid={Boolean(touched.birthDate && errors.birthDate)}
+              />
+              <ErrorMessage name="birthDate" component="span" className={css.error} />
+            </div>
+
+            <div className={css.field}>
+              <label className={css.label} htmlFor="athlete-weightCategory">
+                Вагова категорія*
+              </label>
+              <Field
+                id="athlete-weightCategory"
+                name="weightCategory"
+                type="text"
+                placeholder="до 75 кг"
+                className={css.input}
+                aria-invalid={Boolean(touched.weightCategory && errors.weightCategory)}
+              />
+              <ErrorMessage
+                name="weightCategory"
+                component="span"
+                className={css.error}
+              />
             </div>
 
             <div className={css.field}>
