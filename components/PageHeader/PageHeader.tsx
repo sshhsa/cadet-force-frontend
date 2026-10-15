@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { logoutUser } from '@/lib/api/auth';
@@ -12,6 +13,7 @@ import css from './PageHeader.module.css';
 export default function PageHeader() {
   const router = useRouter();
   const clearAuth = useAuthStore((state) => state.clearAuth);
+  const token = useAuthStore((state) => state.token);
   const userName = useAuthStore((state) => state.user?.name);
 
   const handleLogout = async () => {
@@ -48,13 +50,24 @@ export default function PageHeader() {
 
         <div className={css.right}>
           <span className={css.motto}>Честь · Знання · Закон</span>
-          {userName && <span className={css.userName}>{userName}</span>}
-          <button type="button" className={css.logoutButton} onClick={handleLogout}>
-            <svg className={css.logoutIcon} viewBox="0 0 24 24">
-              <use href="/sprite.svg#icon-logout" />
-            </svg>
-            Вийти
-          </button>
+          {token ? (
+            <>
+              {userName && <span className={css.userName}>{userName}</span>}
+              <button type="button" className={css.logoutButton} onClick={handleLogout}>
+                <svg className={css.logoutIcon} viewBox="0 0 24 24">
+                  <use href="/sprite.svg#icon-logout" />
+                </svg>
+                Вийти
+              </button>
+            </>
+          ) : (
+            <Link href="/login" className={css.logoutButton}>
+              <svg className={css.logoutIcon} viewBox="0 0 24 24">
+                <use href="/sprite.svg#icon-login" />
+              </svg>
+              Увійти
+            </Link>
+          )}
         </div>
       </div>
       <div className={css.goldStripe} />

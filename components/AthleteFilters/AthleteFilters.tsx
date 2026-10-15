@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { SPORTS, SPORT_LABELS } from '@/lib/constants/sports';
+import { useAuthStore } from '@/lib/store/authStore';
 import type { Sport } from '@/types/athlete';
 
 import css from './AthleteFilters.module.css';
@@ -32,6 +33,8 @@ export default function AthleteFilters({
   onViewChange,
   onReset,
 }: AthleteFiltersProps) {
+  const token = useAuthStore((state) => state.token);
+
   return (
     <div className={css.bar}>
       <label className={css.searchField}>
@@ -121,12 +124,14 @@ export default function AthleteFilters({
         </button>
       </div>
 
-      <Link href="/athletes/new" className={css.addButton}>
-        <svg className={css.icon} viewBox="0 0 24 24">
-          <use href="/sprite.svg#icon-plus" />
-        </svg>
-        Додати спортсмена
-      </Link>
+      {token && (
+        <Link href="/athletes/new" className={css.addButton}>
+          <svg className={css.icon} viewBox="0 0 24 24">
+            <use href="/sprite.svg#icon-plus" />
+          </svg>
+          Додати спортсмена
+        </Link>
+      )}
     </div>
   );
 }

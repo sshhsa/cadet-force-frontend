@@ -1,5 +1,5 @@
 import AuthGuard from '@/components/AuthGuard/AuthGuard';
 
-export default function AthletesLayout({ children }: { children: React.ReactNode }) {
+export default function NewAthleteLayout({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
 }

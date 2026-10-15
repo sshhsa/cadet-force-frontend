@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import ConfirmDialog from '@/components/ConfirmDialog/ConfirmDialog';
 import { getErrorMessage } from '@/lib/api/getErrorMessage';
 import { useDeleteAthlete } from '@/lib/hooks/useDeleteAthlete';
+import { useAuthStore } from '@/lib/store/authStore';
 import type { Athlete } from '@/types/athlete';
 
 import css from './AthleteActions.module.css';
@@ -18,6 +19,7 @@ interface AthleteActionsProps {
 export default function AthleteActions({ athlete }: AthleteActionsProps) {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { mutateAsync: deleteAthlete, isPending } = useDeleteAthlete();
+  const token = useAuthStore((state) => state.token);
 
   const handleDelete = async () => {
     try {
@@ -28,6 +30,9 @@ export default function AthleteActions({ athlete }: AthleteActionsProps) {
       toast.error(getErrorMessage(error));
     }
   };
+
+  // Гість без акаунту не може редагувати чи видаляти — дії лише для власника.
+  if (!token) return null;
 
   return (
     <div className={css.actions}>
