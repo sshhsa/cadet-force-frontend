@@ -1,3 +1,4 @@
+import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
 import type { Athlete } from '@/types/athlete';
@@ -12,8 +13,11 @@ export default function AthleteCard({ athlete }: AthleteCardProps) {
   return (
     <article className={css.card}>
       <div className={css.header}>
-        <AthleteAvatar src={athlete.avatarURL} name={athlete.name} size={64} />
-        <h3 className={css.name}>{athlete.name}</h3>
+        <div className={css.identity}>
+          <AthleteAvatar src={athlete.avatarURL} name={athlete.name} size={64} />
+          <h3 className={css.name}>{athlete.name}</h3>
+        </div>
+        <AthleteActions athlete={athlete} />
       </div>
 
       <div className={css.details}>

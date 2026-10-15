@@ -1,17 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 
+import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { updateAthleteAvatar } from '@/lib/api/athletes';
 import { getErrorMessage } from '@/lib/api/getErrorMessage';
 import { useCreateAthlete } from '@/lib/hooks/useCreateAthlete';
+import { useUpdateAthlete } from '@/lib/hooks/useUpdateAthlete';
 import { SPORTS, SPORT_LABELS } from '@/lib/constants/sports';
-import type { CreateAthletePayload, Sport } from '@/types/athlete';
+import type { Athlete, CreateAthletePayload, Sport } from '@/types/athlete';
 
 import css from './AthleteForm.module.css';
 
@@ -26,35 +28,64 @@ interface AthleteFormValues {
   achievements: string;
 }
 
-const initialValues: AthleteFormValues = {
-  name: '',
-  department: '',
-  course: '',
-  sport: '',
-  rank: '',
-  achievements: '',
-};
+const getInitialValues = (athlete?: Athlete): AthleteFormValues =>
+  athlete
+    ? {
+        name: athlete.name,
+        department: athlete.department,
+        course: athlete.course,
+        sport: athlete.sport,
+        rank: athlete.rank,
+        achievements: athlete.achievements,
+      }
+    : {
+        name: '',
+        department: '',
+        course: '',
+        sport: '',
+        rank: '',
+        achievements: '',
+      };
 
 const schema = Yup.object({
   name: Yup.string().trim().min(2, 'Мінімум 2 символи').required("Обов'язкове поле"),
-  department: Yup.string().trim().min(2, 'Мінімум 2 символи').required("Обов'язкове поле"),
-  course: Yup.number().typeError('Оберіть курс').min(1).max(4).required("Обов'язкове поле"),
+  department: Yup.string()
+    .trim()
+    .min(2, 'Мінімум 2 символи')
+    .required("Обов'язкове поле"),
+  course: Yup.number()
+    .typeError('Оберіть курс')
+    .min(1)
+    .max(4)
+    .required("Обов'язкове поле"),
   sport: Yup.string().oneOf(SPORTS, 'Оберіть вид спорту').required("Обов'язкове поле"),
   rank: Yup.string().trim().required("Обов'язкове поле"),
   achievements: Yup.string().trim(),
 });
 
-export default function AthleteForm() {
+interface AthleteFormProps {
+  athlete?: Athlete;
+}
+
+export default function AthleteForm({ athlete }: AthleteFormProps) {
+  const isEditMode = Boolean(athlete);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { mutateAsync: createAthlete, isPending } = useCreateAthlete();
+
+  const { mutateAsync: createAthlete, isPending: isCreating } = useCreateAthlete();
+  const { mutateAsync: updateAthlete, isPending: isUpdating } = useUpdateAthlete();
+  const isPending = isCreating || isUpdating;
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
     setAvatarFile(file);
   };
 
-  const handleSubmit = async (values: AthleteFormValues) => {
+  const handleSubmit = async (
+    values: AthleteFormValues,
+    { resetForm }: FormikHelpers<AthleteFormValues>,
+  ) => {
     try {
       const payload: CreateAthletePayload = {
         name: values.name.trim(),
@@ -65,13 +96,25 @@ export default function AthleteForm() {
         achievements: values.achievements.trim(),
       };
 
-      const newAthlete = await createAthlete(payload);
+      const savedAthlete = isEditMode
+        ? await updateAthlete({ id: athlete!._id, payload })
+        : await createAthlete(payload);
 
       if (avatarFile) {
-        await updateAthleteAvatar(newAthlete._id, avatarFile);
+        await updateAthleteAvatar(savedAthlete._id, avatarFile);
       }
 
-      toast.success('Спортсмена додано');
+      toast.success(isEditMode ? 'Дані спортсмена оновлено' : 'Спортсмена додано');
+
+      // Очищуємо форму й файл перед переходом: Next.js router cache може
+      // лишити цей компонент змонтованим при поверненні на сторінку, тож
+      // без явного скидання стара інформація "виживає" між візитами.
+      resetForm();
+      setAvatarFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+
       router.push('/athletes');
     } catch (error) {
       toast.error(getErrorMessage(error));
@@ -79,7 +122,12 @@ export default function AthleteForm() {
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={getInitialValues(athlete)}
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+      enableReinitialize
+    >
       {({ errors, touched }) => (
         <Form className={css.form} noValidate>
           <div className={css.grid}>
@@ -174,7 +222,14 @@ export default function AthleteForm() {
               <label className={css.label} htmlFor="athlete-avatar">
                 Фото
               </label>
+              {isEditMode && athlete?.avatarURL && !avatarFile && (
+                <div className={css.currentAvatar}>
+                  <AthleteAvatar src={athlete.avatarURL} name={athlete.name} size={48} />
+                  <span className={css.fileName}>Поточне фото</span>
+                </div>
+              )}
               <input
+                ref={fileInputRef}
                 id="athlete-avatar"
                 name="avatar"
                 type="file"
@@ -206,7 +261,7 @@ export default function AthleteForm() {
               Скасувати
             </Link>
             <button className={css.submitButton} type="submit" disabled={isPending}>
-              {isPending ? 'Збереження...' : 'Зберегти'}
+              {isPending ? (isEditMode ? 'Оновлення...' : 'Збереження...') : 'Зберегти'}
             </button>
           </div>
         </Form>

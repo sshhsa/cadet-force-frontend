@@ -1,3 +1,4 @@
+import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
 import type { Athlete } from '@/types/athlete';
@@ -21,6 +22,7 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
             <th>Вид спорту</th>
             <th>Розряд</th>
             <th>Досягнення</th>
+            <th>Дії</th>
           </tr>
         </thead>
         <tbody>
@@ -35,6 +37,9 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
               <td>{SPORT_LABELS[athlete.sport]}</td>
               <td>{athlete.rank}</td>
               <td>{athlete.achievements || '—'}</td>
+              <td>
+                <AthleteActions athlete={athlete} />
+              </td>
             </tr>
           ))}
         </tbody>
