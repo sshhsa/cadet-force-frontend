@@ -29,13 +29,24 @@
   color: var(--color-text-muted);
 }
 
-.placeholder {
+.status {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 200px;
+  min-height: 160px;
   color: var(--color-text-muted);
   background-color: var(--color-white);
   border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.statusError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  color: var(--color-error);
+  background-color: var(--color-white);
+  border: var(--border-width) solid var(--color-error);
   border-radius: var(--radius-md);
 }
