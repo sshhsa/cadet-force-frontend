@@ -7,6 +7,16 @@ export const SPORTS: Sport[] = [
   'football',
   'kickboxing',
   'judo',
+  'fpv-drones',
+  'basketball',
+  'boxing',
+  'volleyball',
+  'kettlebell',
+  'table-tennis',
+  'swimming',
+  'hand-to-hand',
+  'thai-boxing-kickboxing',
+  'chess',
 ];
 
 export const SPORT_LABELS: Record<Sport, string> = {
@@ -16,4 +26,14 @@ export const SPORT_LABELS: Record<Sport, string> = {
   football: 'Футбол',
   kickboxing: 'Кікбоксинг',
   judo: 'Дзюдо',
+  'fpv-drones': 'FPV-спорт (дрони)',
+  basketball: 'Баскетбол',
+  boxing: 'Бокс',
+  volleyball: 'Волейбол',
+  kettlebell: 'Гирьовий спорт',
+  'table-tennis': 'Настільний теніс',
+  swimming: 'Плавання',
+  'hand-to-hand': 'Рукопашний бій',
+  'thai-boxing-kickboxing': 'Таїландський бокс, кікбоксинг',
+  chess: 'Шахи',
 };

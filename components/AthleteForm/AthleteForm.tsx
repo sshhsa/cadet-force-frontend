@@ -69,9 +69,10 @@ const schema = Yup.object({
   sport: Yup.string().oneOf(SPORTS, 'Оберіть вид спорту').required("Обов'язкове поле"),
   rank: Yup.string().trim().required("Обов'язкове поле"),
   birthDate: Yup.date()
-    .typeError("Обов'язкове поле")
+    .typeError('Введіть коректну дату')
     .max(new Date(), 'Дата народження не може бути в майбутньому')
-    .required("Обов'язкове поле"),
+    .nullable()
+    .notRequired(),
   weightCategory: Yup.number()
     .typeError('Введіть число')
     .min(40, 'Вага не може бути меншою за 40 кг')
@@ -80,7 +81,7 @@ const schema = Yup.object({
       'Вага має бути кратною 0.5 (наприклад, 40, 40.5, 41)',
       (value) => value === undefined || Number.isInteger(value * 2),
     )
-    .required("Обов'язкове поле"),
+    .notRequired(),
   achievements: Yup.string().trim(),
 });
 
@@ -114,8 +115,10 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
         course: Number(values.course),
         sport: values.sport as Sport,
         rank: values.rank.trim(),
-        birthDate: values.birthDate,
-        weightCategory: `${values.weightCategory} кг`,
+        ...(values.birthDate ? { birthDate: values.birthDate } : {}),
+        ...(values.weightCategory !== ''
+          ? { weightCategory: `${values.weightCategory} кг` }
+          : {}),
         achievements: values.achievements.trim(),
       };
 
@@ -243,7 +246,7 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
 
             <div className={css.field}>
               <label className={css.label} htmlFor="athlete-birthDate">
-                Дата народження*
+                Дата народження
               </label>
               <Field
                 id="athlete-birthDate"
@@ -257,7 +260,7 @@ export default function AthleteForm({ athlete }: AthleteFormProps) {
 
             <div className={css.field}>
               <label className={css.label} htmlFor="athlete-weightCategory">
-                Вагова категорія*
+                Вагова категорія
               </label>
               <div className={css.suffixField}>
                 <Field

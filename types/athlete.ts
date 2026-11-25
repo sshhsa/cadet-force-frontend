@@ -1,5 +1,20 @@
 export type Sport =
-  'sambo' | 'thai-boxing' | 'athletics' | 'football' | 'kickboxing' | 'judo';
+  | 'sambo'
+  | 'thai-boxing'
+  | 'athletics'
+  | 'football'
+  | 'kickboxing'
+  | 'judo'
+  | 'fpv-drones'
+  | 'basketball'
+  | 'boxing'
+  | 'volleyball'
+  | 'kettlebell'
+  | 'table-tennis'
+  | 'swimming'
+  | 'hand-to-hand'
+  | 'thai-boxing-kickboxing'
+  | 'chess';
 
 export interface Athlete {
   _id: string;
@@ -23,8 +38,8 @@ export interface CreateAthletePayload {
   course: number;
   sport: Sport;
   rank: string;
-  birthDate: string;
-  weightCategory: string;
+  birthDate?: string;
+  weightCategory?: string;
   achievements?: string;
 }
 
