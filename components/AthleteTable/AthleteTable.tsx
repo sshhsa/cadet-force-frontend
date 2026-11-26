@@ -1,5 +1,4 @@
 import AchievementsText from '@/components/AchievementsText/AchievementsText';
-import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
 import { formatDate } from '@/lib/utils/formatDate';
@@ -27,7 +26,6 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
             <th>Дата народження</th>
             <th>Вагова категорія</th>
             <th>Досягнення</th>
-            <th>Дії</th>
           </tr>
         </thead>
         <tbody>
@@ -45,9 +43,6 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
               <td>{formatWeight(athlete.weightCategory)}</td>
               <td className={css.achievements}>
                 <AchievementsText text={athlete.achievements ?? ''} />
-              </td>
-              <td>
-                <AthleteActions athlete={athlete} />
               </td>
             </tr>
           ))}
