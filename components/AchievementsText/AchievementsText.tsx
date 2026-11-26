@@ -18,25 +18,32 @@ export default function AchievementsText({ text }: AchievementsTextProps) {
   }
 
   const isLong = text.length > PREVIEW_LENGTH;
+
+  if (!isLong) {
+    return <span>{text}</span>;
+  }
+
   const cutIndex = text.lastIndexOf(' ', PREVIEW_LENGTH);
-  const previewText = isLong
-    ? text.slice(0, cutIndex > 0 ? cutIndex : PREVIEW_LENGTH) + '…'
-    : text;
+  const splitIndex = cutIndex > 0 ? cutIndex : PREVIEW_LENGTH;
+  const previewText = text.slice(0, splitIndex);
+  const restText = text.slice(splitIndex);
 
   return (
     <span>
-      <span key={isExpanded ? 'expanded' : 'collapsed'} className={css.textInner}>
-        {isExpanded || !isLong ? text : previewText}
+      {previewText}
+      <span className={css.extra} data-expanded={isExpanded}>
+        <span className={css.extraInner}>{restText}</span>
       </span>
-      {isLong && (
-        <button
-          type="button"
-          className={css.toggle}
-          onClick={() => setIsExpanded((prev) => !prev)}
-        >
-          {isExpanded ? ' Показати менше' : ' Показати більше'}
-        </button>
-      )}
+      <span className={css.ellipsis} data-hidden={isExpanded}>
+        …
+      </span>
+      <button
+        type="button"
+        className={css.toggle}
+        onClick={() => setIsExpanded((prev) => !prev)}
+      >
+        {isExpanded ? ' Показати менше' : ' Показати більше'}
+      </button>
     </span>
   );
 }

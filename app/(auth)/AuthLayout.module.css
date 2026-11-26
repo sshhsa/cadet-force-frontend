@@ -1,8 +1,14 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100dvh;
+  flex: 1;
   padding-block: var(--section-padding-medium);
   background-color: var(--color-bg-soft);
   animation: fadeIn 0.3s ease both;

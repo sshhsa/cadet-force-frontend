@@ -73,7 +73,14 @@ const AthleteAvatar = forwardRef<HTMLButtonElement, AthleteAvatarProps>(function
             role="dialog"
             aria-modal="true"
             aria-label={name}
-            onClick={() => setIsOpen(false)}
+            onClick={(event) => {
+              // Портал рендериться у document.body, але синтетичні події
+              // React все одно бульбашать по дереву компонентів (а не DOM),
+              // тому без stopPropagation клік по фону долітав би аж до
+              // onClick картки-батька й миттєво відкривав модалку назад.
+              event.stopPropagation();
+              setIsOpen(false);
+            }}
           >
             <div className={css.modalContent} onClick={(event) => event.stopPropagation()}>
               <button

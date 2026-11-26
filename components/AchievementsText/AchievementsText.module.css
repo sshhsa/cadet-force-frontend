@@ -1,6 +1,21 @@
-.textInner {
-  display: inline;
-  animation: fadeIn 0.25s ease both;
+.extra {
+  display: inline-grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  vertical-align: top;
+}
+
+.extra[data-expanded='true'] {
+  grid-template-rows: 1fr;
+}
+
+.extraInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.ellipsis[data-hidden='true'] {
+  display: none;
 }
 
 .toggle {

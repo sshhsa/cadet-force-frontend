@@ -31,7 +31,7 @@ export default function PageHeader() {
   return (
     <header className={css.header}>
       <div className={`container ${css.inner}`}>
-        <div className={css.brand}>
+        <Link href="/athletes" className={css.brand} aria-label="На головну: список спортсменів">
           <span className={css.badge}>
             <Image
               src="/emblem.png"
@@ -46,7 +46,7 @@ export default function PageHeader() {
             <span className={css.brandTitle}>Національна академія</span>
             <span className={css.brandSubtitle}>внутрішніх справ</span>
           </div>
-        </div>
+        </Link>
 
         <div className={css.right}>
           <span className={css.motto}>Честь · Знання · Закон</span>
