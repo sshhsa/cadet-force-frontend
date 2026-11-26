@@ -14,10 +14,6 @@
   animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
-.viewTransition {
-  animation: fadeIn 0.35s ease both;
-}
-
 .title {
   font-size: var(--fs-h1);
 }

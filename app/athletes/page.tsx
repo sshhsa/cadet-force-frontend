@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import PageHeader from '@/components/PageHeader/PageHeader';
 import AthleteFilters, { type AthleteView } from '@/components/AthleteFilters/AthleteFilters';
@@ -77,15 +78,23 @@ export default function AthletesPage() {
             <p className={css.status}>Спортсменів не знайдено.</p>
           )}
 
-          {!isLoading && !isError && filteredAthletes.length > 0 && (
-            <div key={view} className={css.viewTransition}>
-              {view === 'tile' ? (
-                <AthleteTile athletes={filteredAthletes} />
-              ) : (
-                <AthleteTable athletes={filteredAthletes} />
-              )}
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            {!isLoading && !isError && filteredAthletes.length > 0 && (
+              <motion.div
+                key={view}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+              >
+                {view === 'tile' ? (
+                  <AthleteTile athletes={filteredAthletes} />
+                ) : (
+                  <AthleteTable athletes={filteredAthletes} />
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </main>
     </>

@@ -4,6 +4,7 @@ import 'modern-normalize/modern-normalize.css';
 import './globals.css';
 import { QueryProvider } from '@/components/providers/QueryProvider';
 import AuthHydrator from '@/components/providers/AuthHydrator';
+import PageTransition from '@/components/providers/PageTransition';
 import { Toaster } from 'react-hot-toast';
 
 const geistSans = Geist({
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body>
         <QueryProvider>
           <AuthHydrator />
-          {children}
+          <PageTransition>{children}</PageTransition>
         </QueryProvider>
         <Toaster position="top-right" />
       </body>
