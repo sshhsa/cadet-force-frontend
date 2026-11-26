@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import 'modern-normalize/modern-normalize.css';
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body>
         <QueryProvider>
           <AuthHydrator />
-          <PageTransition>{children}</PageTransition>
+          <Suspense fallback={children}>
+            <PageTransition>{children}</PageTransition>
+          </Suspense>
         </QueryProvider>
         <Toaster position="top-right" />
       </body>
