@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   width: 100%;
-  height: clamp(280px, 50vw, 560px);
+  height: clamp(480px, 70vh, 860px);
   overflow: hidden;
   animation: fadeIn 0.4s ease both;
 }
@@ -42,16 +42,6 @@
   height: 3px;
   background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-white) 100%);
   border-radius: var(--radius-sm);
-}
-
-.credit {
-  position: absolute;
-  bottom: var(--space-2);
-  right: var(--space-3);
-  margin: 0;
-  font-size: var(--fs-text-tiny);
-  color: rgba(255, 255, 255, 0.78);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 @keyframes fadeIn {

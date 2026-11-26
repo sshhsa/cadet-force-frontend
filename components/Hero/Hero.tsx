@@ -18,9 +18,6 @@ export default function Hero() {
         <h1 className={css.title}>Список спортсменів НАВС</h1>
         <div className={css.divider} />
       </div>
-      <p className={css.credit}>
-        Фото: Artemco / Wikimedia Commons, CC BY-SA 4.0
-      </p>
     </section>
   );
 }
