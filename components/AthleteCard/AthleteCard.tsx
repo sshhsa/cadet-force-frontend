@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import AchievementsText from '@/components/AchievementsText/AchievementsText';
 import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
@@ -15,15 +17,25 @@ interface AthleteCardProps {
 
 export default function AthleteCard({ athlete, index = 0 }: AthleteCardProps) {
   const achievements = athlete.achievements ?? '';
+  const avatarButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Клік по будь-якому місцю картки (крім кнопок/посилань) відкриває фото,
+  // як і клік по самому аватару.
+  const handleCardClick = (event: React.MouseEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('button, a')) return;
+    avatarButtonRef.current?.click();
+  };
 
   return (
     <article
       className={css.card}
       style={{ '--card-index': Math.min(index, 12) } as React.CSSProperties}
+      onClick={handleCardClick}
     >
       <div className={css.header}>
         <div className={css.identity}>
-          <AthleteAvatar src={athlete.avatarURL} name={athlete.name} size={64} />
+          <AthleteAvatar ref={avatarButtonRef} src={athlete.avatarURL} name={athlete.name} size={64} />
           <h3 className={css.name}>{athlete.name}</h3>
         </div>
         <AthleteActions athlete={athlete} />

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
 import css from './AthleteAvatar.module.css';
@@ -20,7 +21,10 @@ const getInitials = (name: string): string =>
     .join('')
     .toUpperCase();
 
-export default function AthleteAvatar({ src, name, size = 56 }: AthleteAvatarProps) {
+const AthleteAvatar = forwardRef<HTMLButtonElement, AthleteAvatarProps>(function AthleteAvatar(
+  { src, name, size = 56 },
+  ref,
+) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Esc закриває модалку з фото
@@ -46,6 +50,7 @@ export default function AthleteAvatar({ src, name, size = 56 }: AthleteAvatarPro
   return (
     <>
       <button
+        ref={ref}
         type="button"
         className={css.avatarButton}
         onClick={() => setIsOpen(true)}
@@ -61,41 +66,45 @@ export default function AthleteAvatar({ src, name, size = 56 }: AthleteAvatarPro
         />
       </button>
 
-      {isOpen && (
-        <div
-          className={css.overlay}
-          role="dialog"
-          aria-modal="true"
-          aria-label={name}
-          onClick={() => setIsOpen(false)}
-        >
-          <div className={css.modalContent} onClick={(event) => event.stopPropagation()}>
-            <button
-              type="button"
-              className={css.closeButton}
-              onClick={() => setIsOpen(false)}
-              aria-label="Закрити"
-            >
-              <svg viewBox="0 0 24 24" className={css.closeIcon} aria-hidden="true">
-                <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </button>
+      {isOpen &&
+        createPortal(
+          <div
+            className={css.overlay}
+            role="dialog"
+            aria-modal="true"
+            aria-label={name}
+            onClick={() => setIsOpen(false)}
+          >
+            <div className={css.modalContent} onClick={(event) => event.stopPropagation()}>
+              <button
+                type="button"
+                className={css.closeButton}
+                onClick={() => setIsOpen(false)}
+                aria-label="Закрити"
+              >
+                <svg viewBox="0 0 24 24" className={css.closeIcon} aria-hidden="true">
+                  <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </button>
 
-            <div className={css.modalImageWrap}>
-              <Image
-                src={src}
-                alt={name}
-                fill
-                sizes="(max-width: 600px) 90vw, 480px"
-                className={css.modalImage}
-              />
+              <div className={css.modalImageWrap}>
+                <Image
+                  src={src}
+                  alt={name}
+                  fill
+                  sizes="(max-width: 600px) 90vw, 480px"
+                  className={css.modalImage}
+                />
+              </div>
+
+              <p className={css.modalCaption}>{name}</p>
             </div>
-
-            <p className={css.modalCaption}>{name}</p>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
-}
+});
+
+export default AthleteAvatar;
