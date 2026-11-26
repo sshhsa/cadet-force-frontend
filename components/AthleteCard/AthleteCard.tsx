@@ -1,7 +1,4 @@
-'use client';
-
-import { useState } from 'react';
-
+import AchievementsText from '@/components/AchievementsText/AchievementsText';
 import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
@@ -11,21 +8,12 @@ import type { Athlete } from '@/types/athlete';
 
 import css from './AthleteCard.module.css';
 
-const ACHIEVEMENTS_PREVIEW_LENGTH = 100;
-
 interface AthleteCardProps {
   athlete: Athlete;
 }
 
 export default function AthleteCard({ athlete }: AthleteCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   const achievements = athlete.achievements ?? '';
-  const isLong = achievements.length > ACHIEVEMENTS_PREVIEW_LENGTH;
-  const cutIndex = achievements.lastIndexOf(' ', ACHIEVEMENTS_PREVIEW_LENGTH);
-  const previewText = isLong
-    ? achievements.slice(0, cutIndex > 0 ? cutIndex : ACHIEVEMENTS_PREVIEW_LENGTH) + '…'
-    : achievements;
 
   return (
     <article className={css.card}>
@@ -90,16 +78,7 @@ export default function AthleteCard({ athlete }: AthleteCardProps) {
           <div>
             <p className={css.achievementsLabel}>Досягнення:</p>
             <p className={css.achievementsText}>
-              {isExpanded || !isLong ? achievements : previewText}
-              {isLong && (
-                <button
-                  type="button"
-                  className={css.achievementsToggle}
-                  onClick={() => setIsExpanded((prev) => !prev)}
-                >
-                  {isExpanded ? ' Показати менше' : ' Показати більше'}
-                </button>
-              )}
+              <AchievementsText text={achievements} />
             </p>
           </div>
         </div>

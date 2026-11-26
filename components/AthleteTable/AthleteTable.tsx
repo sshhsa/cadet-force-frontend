@@ -1,3 +1,4 @@
+import AchievementsText from '@/components/AchievementsText/AchievementsText';
 import AthleteActions from '@/components/AthleteActions/AthleteActions';
 import AthleteAvatar from '@/components/AthleteAvatar/AthleteAvatar';
 import { SPORT_LABELS } from '@/lib/constants/sports';
@@ -42,7 +43,9 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
               <td>{athlete.rank}</td>
               <td>{formatDate(athlete.birthDate)}</td>
               <td>{formatWeight(athlete.weightCategory)}</td>
-              <td>{athlete.achievements || '—'}</td>
+              <td className={css.achievements}>
+                <AchievementsText text={athlete.achievements ?? ''} />
+              </td>
               <td>
                 <AthleteActions athlete={athlete} />
               </td>

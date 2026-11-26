@@ -37,3 +37,8 @@
   color: var(--color-text-navy);
   white-space: nowrap;
 }
+
+.achievements {
+  max-width: 320px;
+  white-space: normal;
+}
