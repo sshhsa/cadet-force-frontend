@@ -1,17 +1,8 @@
-'use client';
+import { redirect } from 'next/navigation';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-
-import { useAuthStore } from '@/lib/store/authStore';
-
+// Головна сторінка завжди веде на публічний список курсантів —
+// незалежно від того, залогінений відвідувач чи ні. "Увійти"/"Зареєструватися"
+// лишаються доступними з шапки сайту (PageHeader), а не є обов'язковим кроком.
 export default function Home() {
-  const token = useAuthStore((state) => state.token);
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace(token ? '/athletes' : '/login');
-  }, [token, router]);
-
-  return null;
+  redirect('/athletes');
 }
