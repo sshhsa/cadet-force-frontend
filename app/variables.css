@@ -61,7 +61,7 @@
   --container-small: 768px;
   --container-medium: 1024px;
   --container-large: 1280px;
-  --container-max: calc(var(--container-large) + var(--page-padding) + var(--page-padding));
+  --container-max: 1440px;
   --max-width-xxsmall: 320px;
   --max-width-xsmall: 400px;
   --max-width-small: 480px;

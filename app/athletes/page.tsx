@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import PageHeader from '@/components/PageHeader/PageHeader';
+import Hero from '@/components/Hero/Hero';
 import AthleteFilters, { type AthleteView } from '@/components/AthleteFilters/AthleteFilters';
 import AthleteTable from '@/components/AthleteTable/AthleteTable';
 import AthleteTile from '@/components/AthleteTile/AthleteTile';
@@ -46,17 +47,14 @@ export default function AthletesPage() {
   return (
     <>
       <PageHeader />
+      <Hero />
       <main className={css.main}>
         <div className="container">
-          <div className={css.titleBlock}>
-            <h1 className={css.title}>Список спортсменів НАВС</h1>
-            <div className={css.divider} />
-            <p className={css.subtitle}>
-              {view === 'tile'
-                ? 'Плитковий вигляд відображення даних'
-                : 'Табличний вигляд відображення даних'}
-            </p>
-          </div>
+          <p className={css.subtitle}>
+            {view === 'tile'
+              ? 'Плитковий вигляд відображення даних'
+              : 'Табличний вигляд відображення даних'}
+          </p>
 
           <AthleteFilters
             search={search}
