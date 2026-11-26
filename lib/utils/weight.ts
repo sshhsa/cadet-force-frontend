@@ -12,10 +12,17 @@ export const parseWeightValue = (
   return match ? Number(match[0]) : '';
 };
 
-/** Формат для показу користувачу: 75 -> "75 кг", "75 кг" -> "75 кг", null -> "—" */
+/**
+ * Формат для показу користувачу: 75 -> "75 кг", "75 кг" -> "75 кг",
+ * "Без вагової категорії" -> лишається без змін (не числове значення),
+ * null -> "—"
+ */
 export const formatWeight = (weightCategory: string | null | undefined): string => {
   if (!weightCategory) return '—';
 
   const trimmed = weightCategory.trim();
+
+  if (!/\d/.test(trimmed)) return trimmed;
+
   return /кг\s*$/i.test(trimmed) ? trimmed : `${trimmed} кг`;
 };

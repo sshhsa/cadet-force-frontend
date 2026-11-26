@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import css from './AthleteAvatar.module.css';
@@ -18,6 +21,20 @@ const getInitials = (name: string): string =>
     .toUpperCase();
 
 export default function AthleteAvatar({ src, name, size = 56 }: AthleteAvatarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Esc закриває модалку з фото
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   if (!src) {
     return (
       <span className={css.placeholder} style={{ width: size, height: size }}>
@@ -27,13 +44,58 @@ export default function AthleteAvatar({ src, name, size = 56 }: AthleteAvatarPro
   }
 
   return (
-    <Image
-      src={src}
-      alt={name}
-      width={size}
-      height={size}
-      className={css.image}
-      style={{ width: size, height: size }}
-    />
+    <>
+      <button
+        type="button"
+        className={css.avatarButton}
+        onClick={() => setIsOpen(true)}
+        aria-label={`Переглянути фото: ${name}`}
+      >
+        <Image
+          src={src}
+          alt={name}
+          width={size}
+          height={size}
+          className={css.image}
+          style={{ width: size, height: size }}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          className={css.overlay}
+          role="dialog"
+          aria-modal="true"
+          aria-label={name}
+          onClick={() => setIsOpen(false)}
+        >
+          <div className={css.modalContent} onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className={css.closeButton}
+              onClick={() => setIsOpen(false)}
+              aria-label="Закрити"
+            >
+              <svg viewBox="0 0 24 24" className={css.closeIcon} aria-hidden="true">
+                <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+
+            <div className={css.modalImageWrap}>
+              <Image
+                src={src}
+                alt={name}
+                fill
+                sizes="(max-width: 600px) 90vw, 480px"
+                className={css.modalImage}
+              />
+            </div>
+
+            <p className={css.modalCaption}>{name}</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
