@@ -77,14 +77,15 @@ export default function AthletesPage() {
             <p className={css.status}>Спортсменів не знайдено.</p>
           )}
 
-          {!isLoading &&
-            !isError &&
-            filteredAthletes.length > 0 &&
-            (view === 'tile' ? (
-              <AthleteTile athletes={filteredAthletes} />
-            ) : (
-              <AthleteTable athletes={filteredAthletes} />
-            ))}
+          {!isLoading && !isError && filteredAthletes.length > 0 && (
+            <div key={view} className={css.viewTransition}>
+              {view === 'tile' ? (
+                <AthleteTile athletes={filteredAthletes} />
+              ) : (
+                <AthleteTable athletes={filteredAthletes} />
+              )}
+            </div>
+          )}
         </div>
       </main>
     </>

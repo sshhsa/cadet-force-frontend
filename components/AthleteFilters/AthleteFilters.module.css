@@ -8,6 +8,7 @@
   background-color: var(--color-white);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
+  animation: fadeInUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .icon {
