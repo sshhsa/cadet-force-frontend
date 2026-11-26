@@ -10,6 +10,7 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: 0 4px 24px var(--color-overlay-5);
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .title {
@@ -110,12 +111,19 @@
   background-color: var(--color-navy);
   border: var(--border-width) solid transparent;
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition);
+  transition: background-color var(--transition), transform var(--transition-fast), box-shadow var(--transition);
 }
 
 .button:hover:not(:disabled),
 .button:focus-visible {
   background-color: var(--color-navy-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .button:disabled {

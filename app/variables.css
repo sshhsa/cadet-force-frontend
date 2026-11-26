@@ -87,8 +87,14 @@
   --radius-lg: 20px;
   --border-width: 1px;
 
+  /* ===== shadows ===== */
+  --shadow-sm: 0 1px 3px rgba(14, 33, 88, 0.08);
+  --shadow-md: 0 12px 28px rgba(14, 33, 88, 0.14);
+  --shadow-lg: 0 20px 44px rgba(14, 33, 88, 0.2);
+
   /* ===== misc ===== */
   --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* tablet (768) */

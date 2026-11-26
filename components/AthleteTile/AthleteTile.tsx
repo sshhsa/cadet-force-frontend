@@ -10,8 +10,8 @@ interface AthleteTileProps {
 export default function AthleteTile({ athletes }: AthleteTileProps) {
   return (
     <div className={css.grid}>
-      {athletes.map((athlete) => (
-        <AthleteCard key={athlete._id} athlete={athlete} />
+      {athletes.map((athlete, index) => (
+        <AthleteCard key={athlete._id} athlete={athlete} index={index} />
       ))}
     </div>
   );

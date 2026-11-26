@@ -25,7 +25,9 @@ export default function AchievementsText({ text }: AchievementsTextProps) {
 
   return (
     <span>
-      {isExpanded || !isLong ? text : previewText}
+      <span key={isExpanded ? 'expanded' : 'collapsed'} className={css.textInner}>
+        {isExpanded || !isLong ? text : previewText}
+      </span>
       {isLong && (
         <button
           type="button"

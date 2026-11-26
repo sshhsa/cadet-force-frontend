@@ -31,8 +31,8 @@ export default function AthleteTable({ athletes }: AthleteTableProps) {
           </tr>
         </thead>
         <tbody>
-          {athletes.map((athlete) => (
-            <tr key={athlete._id}>
+          {athletes.map((athlete, index) => (
+            <tr key={athlete._id} style={{ '--row-index': Math.min(index, 16) } as React.CSSProperties}>
               <td>
                 <AthleteAvatar src={athlete.avatarURL} name={athlete.name} size={48} />
               </td>

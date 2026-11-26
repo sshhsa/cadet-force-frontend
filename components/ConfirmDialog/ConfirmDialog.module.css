@@ -7,6 +7,7 @@
   justify-content: center;
   padding: var(--space-4);
   background-color: rgba(14, 33, 88, 0.5);
+  animation: fadeIn 0.2s ease both;
 }
 
 .dialog {
@@ -16,6 +17,7 @@
   background-color: var(--color-white);
   border-radius: var(--radius-lg);
   box-shadow: 0 10px 40px rgba(14, 33, 88, 0.25);
+  animation: dialogIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .title {
@@ -45,11 +47,18 @@
   background-color: var(--color-white);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-sm);
-  transition: border-color var(--transition);
+  transition: border-color var(--transition), transform var(--transition-fast), box-shadow var(--transition);
 }
 
 .cancelButton:hover:not(:disabled) {
   border-color: var(--color-navy);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cancelButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .confirmButton {
@@ -60,11 +69,18 @@
   background-color: var(--color-error);
   border: var(--border-width) solid transparent;
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition);
+  transition: background-color var(--transition), transform var(--transition-fast), box-shadow var(--transition);
 }
 
 .confirmButton:hover:not(:disabled) {
   background-color: #8f0101;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.confirmButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .cancelButton:disabled,

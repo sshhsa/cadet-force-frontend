@@ -3,6 +3,17 @@
   background-color: var(--color-white);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.table tbody tr {
+  transition: background-color var(--transition-fast);
+  animation: fadeIn 0.4s ease both;
+  animation-delay: calc(var(--row-index, 0) * 30ms);
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-bg-lavender);
 }
 
 .table {

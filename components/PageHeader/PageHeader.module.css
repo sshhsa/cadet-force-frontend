@@ -83,11 +83,18 @@
   color: var(--color-navy);
   background-color: var(--color-white);
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition);
+  transition: background-color var(--transition), transform var(--transition-fast), box-shadow var(--transition);
 }
 
 .logoutButton:hover {
   background-color: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.logoutButton:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .logoutIcon {

@@ -10,13 +10,17 @@ import css from './AthleteCard.module.css';
 
 interface AthleteCardProps {
   athlete: Athlete;
+  index?: number;
 }
 
-export default function AthleteCard({ athlete }: AthleteCardProps) {
+export default function AthleteCard({ athlete, index = 0 }: AthleteCardProps) {
   const achievements = athlete.achievements ?? '';
 
   return (
-    <article className={css.card}>
+    <article
+      className={css.card}
+      style={{ '--card-index': Math.min(index, 12) } as React.CSSProperties}
+    >
       <div className={css.header}>
         <div className={css.identity}>
           <AthleteAvatar src={athlete.avatarURL} name={athlete.name} size={64} />

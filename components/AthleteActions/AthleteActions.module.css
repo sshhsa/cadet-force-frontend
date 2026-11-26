@@ -18,12 +18,21 @@
   transition:
     background-color var(--transition),
     border-color var(--transition),
-    color var(--transition);
+    color var(--transition),
+    transform var(--transition-fast),
+    box-shadow var(--transition);
 }
 
 .actionButton:hover {
   border-color: var(--color-navy);
   background-color: var(--color-bg-lavender);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .danger {
