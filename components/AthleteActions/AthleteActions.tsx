@@ -19,7 +19,7 @@ interface AthleteActionsProps {
 export default function AthleteActions({ athlete }: AthleteActionsProps) {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { mutateAsync: deleteAthlete, isPending } = useDeleteAthlete();
-  const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
 
   const handleDelete = async () => {
     try {
@@ -31,8 +31,8 @@ export default function AthleteActions({ athlete }: AthleteActionsProps) {
     }
   };
 
-  // Гість без акаунту не може редагувати чи видаляти — дії лише для власника.
-  if (!token) return null;
+  // Дії доступні лише власнику запису, а не будь-кому залогіненому.
+  if (!user || athlete.owner !== user.id) return null;
 
   return (
     <div className={css.actions}>

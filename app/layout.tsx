@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
 import { QueryProvider } from '@/components/providers/QueryProvider';
+import AuthHydrator from '@/components/providers/AuthHydrator';
 import { Toaster } from 'react-hot-toast';
 
 const geistSans = Geist({
@@ -24,7 +25,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="uk" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <AuthHydrator />
+          {children}
+        </QueryProvider>
         <Toaster position="top-right" />
       </body>
     </html>
