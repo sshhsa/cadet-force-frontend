@@ -50,12 +50,6 @@ export default function AthletesPage() {
       <Hero />
       <main className={css.main}>
         <div className="container">
-          <p className={css.subtitle}>
-            {view === 'tile'
-              ? 'Плитковий вигляд відображення даних'
-              : 'Табличний вигляд відображення даних'}
-          </p>
-
           <AthleteFilters
             search={search}
             onSearchChange={setSearch}

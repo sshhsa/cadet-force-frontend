@@ -12,10 +12,9 @@ import css from './AthleteCard.module.css';
 
 interface AthleteCardProps {
   athlete: Athlete;
-  index?: number;
 }
 
-export default function AthleteCard({ athlete, index = 0 }: AthleteCardProps) {
+export default function AthleteCard({ athlete }: AthleteCardProps) {
   const achievements = athlete.achievements ?? '';
   const avatarButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -28,11 +27,7 @@ export default function AthleteCard({ athlete, index = 0 }: AthleteCardProps) {
   };
 
   return (
-    <article
-      className={css.card}
-      style={{ '--card-index': Math.min(index, 12) } as React.CSSProperties}
-      onClick={handleCardClick}
-    >
+    <article className={css.card} onClick={handleCardClick}>
       <div className={css.header}>
         <div className={css.identity}>
           <AthleteAvatar ref={avatarButtonRef} src={athlete.avatarURL} name={athlete.name} size={64} />

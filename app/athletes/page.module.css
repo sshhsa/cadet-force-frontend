@@ -4,14 +4,6 @@
   background-color: var(--color-bg-soft);
 }
 
-.subtitle {
-  margin-bottom: var(--space-6);
-  font-size: var(--fs-text-regular);
-  color: var(--color-text-muted);
-  text-align: center;
-  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
 .status {
   display: flex;
   align-items: center;
